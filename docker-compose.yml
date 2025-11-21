@@ -30,7 +30,7 @@ services:
       timeout: 20s
       retries: 10
 
- phpmyadmin:
+  phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
     restart: always
@@ -45,4 +45,5 @@ services:
 
 volumes:
   dbdata:
+
 
