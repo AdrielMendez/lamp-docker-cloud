@@ -1,5 +1,5 @@
+version: "3.8"
 services:
-
   apache:
     image: php:8.2-apache
     container_name: apache
@@ -8,10 +8,9 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      mysql:
-        condition: service_healthy
+      - mysql
     command: >
-      bash -c "docker-php-ext-install mysqli pdo pdo_mysql && apache2-foreground"
+      bash -c "docker-php-ext-install mysqli && apache2-foreground"
 
   mysql:
     image: mysql:8
@@ -19,31 +18,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: testdb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pass
-    ports:
-      - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
-      timeout: 20s
-      retries: 10
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin
-    restart: always
-    environment:
-      PMA_HOST: hopper.proxy.rlwy.net
-      PMA_PORT: 41725
-      PMA_USER: root
-      PMA_PASSWORD: NInCtNAqoHyRyDMWLJbEtfynXZpTPRDu
-      PMA_DATABASE: railway
-    ports:
-      - "8081:80"
 
 volumes:
   dbdata:
-
-
