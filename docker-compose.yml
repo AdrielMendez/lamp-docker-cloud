@@ -30,19 +30,19 @@ services:
       timeout: 20s
       retries: 10
 
-  phpmyadmin:
-    image: phpmyadmin:latest
+ phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
-    depends_on:
-      mysql:
-        condition: service_healthy
+    restart: always
+    environment:
+      PMA_HOST: hopper.proxy.rlwy.net
+      PMA_PORT: 41725
+      PMA_USER: root
+      PMA_PASSWORD: NInCtNAqoHyRyDMWLJbEtfynXZpTPRDu
+      PMA_DATABASE: railway
     ports:
       - "8081:80"
-    environment:
-      PMA_HOST: mysql
-      PMA_USER: root
-      PMA_PASSWORD: root
-      UPLOAD_LIMIT: 128M
 
 volumes:
   dbdata:
+
