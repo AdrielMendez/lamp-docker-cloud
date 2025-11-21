@@ -1,7 +1,11 @@
 {
+  "name": "lamp-docker-cloud",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "apache",
   "forwardPorts": [8080, 8081],
   "portsAttributes": {
-    "8080": { "label": "Apache" },
+    "8080": { "label": "Apache Server" },
     "8081": { "label": "phpMyAdmin" }
-  }
+  },
+  "remoteUser": "vscode"
 }
